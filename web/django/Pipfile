@@ -5,6 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+django-subdomains = "*"
+django-hosts = "*"
+flask = "*"
 
 [dev-packages]
 
