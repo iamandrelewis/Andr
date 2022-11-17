@@ -309,6 +309,7 @@ struct appointment Create_app() //
 		char opt;
 		char opt2;
 		char opt3;
+		char opt4;
 
 		system("cls");//clears the screen
 		printf("\tDr. Mitchell's Medical Center Appointment Program\n");
@@ -351,32 +352,56 @@ struct appointment Create_app() //
 					Create_app();
 					break;
 				case '2':
-
+				
 				system("cls");//clears the screen
 				printf("\tDr. Mitchell's Medical Center Appointment Program\n");
 				printf("--------------------------------------------------------------\n");
 				printf("==============     Appointment Registration     ==============\n\n");
-				printf("Enter the day for an appointment :");
-				scanf("%s",details.dow);
-				printf("What time of day (XX: 00 [24 hr]): ");
-				scanf("%s",details.timeofday);
-				printf("Enter type of visit:\n [1]\tConsultation\n[2]\tPrimary Care\n[3]\tFollow-Up Visit\n[4]\tUrgent Visit\n\n");
+				printf("Select the day of an appointment: \n[1]\tMonday\n[2]\tTuesday\n[3]\tWednesday\n[4]\tThursday\n[5]\tFriday\n\n");
+				DayoftheWeekPrompt:
 				opt3 = getch();
 				switch (opt3)
 				{
 				case '1':
-					/* code */
+					strcpy(details.dow,"Monday");
 					break;
 				case '2':
-					/* code */
+					strcpy(details.dow,"Tuesday");
 					break;
 				case '3':
-					/* code */
+					strcpy(details.dow,"Wednesday");
 					break;
 				case '4':
-					/* code */
+					strcpy(details.dow,"Thursday");
+					break;
+				case '5':
+					strcpy(details.dow,"Friday");
+					break;	
+				default:
+					goto DayoftheWeekPrompt;
+					break;
+				}
+				printf("What time of day (XX: 00 [24 hr]): ");
+				scanf("%s",details.timeofday);
+				printf("Enter type of visit:\n[1]\tConsultation\n[2]\tPrimary Care\n[3]\tFollow-Up Visit\n[4]\tUrgent Visit\n\n");
+				TypeofVisitPrompt:
+				opt4 = getch();
+				switch (opt4)
+				{
+				case '1':
+					strcpy(details.tov,"Consultation");
+					break;
+				case '2':
+					strcpy(details.tov,"Primary Care");
+					break;
+				case '3':
+					strcpy(details.tov,"Follow-Up Visit");
+					break;
+				case '4':
+					strcpy(details.tov,"Urgent Visit");
 					break;
 				default:
+					goto TypeofVisitPrompt;
 					break;
 				}
 				printf("Enter the appointment date (dd-mmm-yyyy): ");
