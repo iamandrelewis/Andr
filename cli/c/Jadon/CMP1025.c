@@ -39,8 +39,8 @@ struct appointment // stores the appointment info in the format where, ...
 {
 	char patient_id[9];
     char dow[9];// day of the week (only Mon-Fri)
-    char timeofday[5];// time will be saved as a string "8:00-7:00" only
-    char tov[15];// type of visit
+    char timeofday[6];// time will be saved as a string "8:00-7:00" only
+    char tov[25];// type of visit
     struct date doa; // date of appointment
 };
 
@@ -357,7 +357,7 @@ struct appointment Create_app() //
 				printf("\tDr. Mitchell's Medical Center Appointment Program\n");
 				printf("--------------------------------------------------------------\n");
 				printf("==============     Appointment Registration     ==============\n\n");
-				printf("Select the day of an appointment: \n[1]\tMonday\n[2]\tTuesday\n[3]\tWednesday\n[4]\tThursday\n[5]\tFriday\n\n");
+				printf("Select the weekday of the appointment: \n[1]\tMonday\n[2]\tTuesday\n[3]\tWednesday\n[4]\tThursday\n[5]\tFriday\n\n");
 				DayoftheWeekPrompt:
 				opt3 = getch();
 				switch (opt3)
@@ -381,9 +381,7 @@ struct appointment Create_app() //
 					goto DayoftheWeekPrompt;
 					break;
 				}
-				printf("What time of day (XX: 00 [24 hr]): ");
-				scanf("%s",details.timeofday);
-				printf("Enter type of visit:\n[1]\tConsultation\n[2]\tPrimary Care\n[3]\tFollow-Up Visit\n[4]\tUrgent Visit\n\n");
+				printf("Select the type of visit:\n[1]\tConsultation\n[2]\tPrimary Care\n[3]\tFollow-Up Visit\n[4]\tUrgent Visit\n\n");
 				TypeofVisitPrompt:
 				opt4 = getch();
 				switch (opt4)
@@ -404,6 +402,8 @@ struct appointment Create_app() //
 					goto TypeofVisitPrompt;
 					break;
 				}
+				printf("Enter the time of day (XX:00 - 24hr): ");
+				scanf("%s",details.timeofday);
 				printf("Enter the appointment date (dd-mmm-yyyy): ");
 				scanf("%d%s%d",&details.doa.dd,details.doa.mmm,&details.doa.yyyy);
 
@@ -415,8 +415,8 @@ struct appointment Create_app() //
 					printf("------------------------------------------------------------------\n\n");
 					printf("================     Appointment Registration     ================\n\n");
 					printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
-					printf("Day of the Week\t\t\t%s\n",details.dow);
-					printf("Time Period (XX:00 [24hr]):\t\t\t%s\n",details.timeofday);
+					printf("Day of the Week:\t\t\t\t%s\n",details.dow);
+					printf("Time Period (XX:00 - 24hr):\t\t\t%s\n",details.timeofday);
 					printf("Type of Visit\t\t\t\t%s\n",details.tov);
 					printf("Appointment Date:\t\t\t\t%d-%s-%d\n", details.doa.dd,details.doa.mmm,details.doa.yyyy);
 					printf("\n------------------------------------------------------------------\n\n");
@@ -434,7 +434,7 @@ struct appointment Create_app() //
 						printf("================     Appointment Registration     ================\n\n");
 						printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
 						printf("Day of the Week\t\t\t%s\t\t[1]\n",details.dow);
-						printf("Time Period (XX:00 [24hr]):\t\t\t%s\t\t[2]\n",details.timeofday);
+						printf("Time Period (XX:00 - 24hr):\t\t\t%s\t\t[2]\n",details.timeofday);
 						printf("Type of Visit\t\t\t\t%s\t\t[3]\n",details.tov);
 						printf("Appointment Date:\t\t\t\t%d-%s-%d\t\t[4]\n", details.doa.dd,details.doa.mmm,details.doa.yyyy);
 						printf("\n------------------------------------------------------------------\n");
@@ -452,7 +452,7 @@ struct appointment Create_app() //
 							printf("================     Appointment Registration     ================\n\n");
 							printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
 							printf("Day of the Week\t\t\t%s\t\t[1]\n",details.dow);
-							printf("Time Period (XX:00 [24hr]): ");
+							printf("Time Period (XX:00 - 24hr): ");
 							scanf("%s",details.timeofday);
 							printf("Type of Visit\t\t\t\t%s\t\t[3]\n",details.tov);
 							printf("Appointment Date:\t\t\t\t%d-%s-%d\t\t[4]\n", details.doa.dd,details.doa.mmm,details.doa.yyyy);
@@ -468,8 +468,30 @@ struct appointment Create_app() //
 							printf("------------------------------------------------------------------\n\n");
 							printf("================     Appointment Registration     ================\n\n");
 							printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
-							printf("Day of the Week: ");
-							scanf("%s",details.dow);
+							printf("Select the weekday of the appointment: \n[a]\tMonday\n[b]\tTuesday\n[c]\tWednesday\n[d]\tThursday\n[e]\tFriday\n\n");
+							DayoftheWeekPrompt2:
+							opt3 = getch();
+							switch (opt3)
+							{
+							case 'a':
+								strcpy(details.dow,"Monday");
+								break;
+							case 'b':
+								strcpy(details.dow,"Tuesday");
+								break;
+							case 'c':
+								strcpy(details.dow,"Wednesday");
+								break;
+							case 'd':
+								strcpy(details.dow,"Thursday");
+								break;
+							case 'e':
+								strcpy(details.dow,"Friday");
+								break;	
+							default:
+								goto DayoftheWeekPrompt2;
+								break;
+							}
 							printf("Time Period:\t\t\t%s\t\t[2]\n",details.timeofday);
 							printf("Type of Visit\t\t\t\t%s\t\t[3]\n",details.tov);
 							printf("Appointment Date:\t\t\t\t%d-%s-%d\t\t[4]\n", details.doa.dd,details.doa.mmm,details.doa.yyyy);
@@ -486,9 +508,44 @@ struct appointment Create_app() //
 							printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
 							printf("Day of the Week\t\t\t%s\t\t[1]\n",details.dow);
 							printf("Time Period:\t\t\t%s\t\t[2]\n",details.timeofday);
-							printf("Type of Visit: ");
-							scanf("%s",details.tov);
+							printf("Select the type of visit:\n[a]\tConsultation\n[b]\tPrimary Care\n[c]\tFollow-Up Visit\n[d]\tUrgent Visit\n\n");
+							TypeofVisitPrompt2:
+							opt4 = getch();
+							switch (opt4)
+							{
+							case 'a':
+								strcpy(details.tov,"Consultation");
+								break;
+							case 'b':
+								strcpy(details.tov,"Primary Care");
+								break;
+							case 'c':
+								strcpy(details.tov,"Follow-Up Visit");
+								break;
+							case 'd':
+								strcpy(details.tov,"Urgent Visit");
+								break;
+							default:
+								goto TypeofVisitPrompt2;
+								break;
+							}
 							printf("Appointment Date:\t\t\t\t%d-%s-%d\t\t[4]\n", details.doa.dd,details.doa.mmm,details.doa.yyyy);
+							printf("\n------------------------------------------------------------------\n");
+							printf("\t\t\t\t....");
+							printf("\n===================================================================\n");
+							goto editAppointment;
+							break;
+						case '4':
+							system("cls");
+							printf("\tDr. Mitchell's Medical Center Appointment Program\n");
+							printf("------------------------------------------------------------------\n\n");
+							printf("================     Appointment Registration     ================\n\n");
+							printf("Patient ID:\t\t\t\t[%s]\n\n\n",patient.patient_id);
+							printf("Day of the Week\t\t\t%s\t\t[1]\n",details.dow);
+							printf("Time Period:\t\t\t%s\t\t[2]\n",details.timeofday);
+							printf("Type of Visit\t\t\t\t%s\t\t[3]\n",details.tov);
+							printf("Enter the appointment date (dd-mmm-yyyy): ");
+							scanf("%d%s%d",&details.doa.dd,details.doa.mmm,&details.doa.yyyy);
 							printf("\n------------------------------------------------------------------\n");
 							printf("\t\t\t\t....");
 							printf("\n===================================================================\n");
